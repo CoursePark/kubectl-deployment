@@ -1,11 +1,11 @@
-default: docker_build
+default: build
 
 DOCKER_IMAGE ?= bluedrop360/kubectl-deployment
 DOCKER_TAG ?= latest
 
-docker_build:
+build:
 	docker build -t $(DOCKER_IMAGE):$(DOCKER_TAG) .
 	
-docker_push:
+push:
 	# Push to DockerHub
 	docker push $(DOCKER_IMAGE):$(DOCKER_TAG)
