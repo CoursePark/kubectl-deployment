@@ -4,7 +4,7 @@
 
 ### Kubectl configuration file
 
-kubectl needs configuration file to connect kubernetes cluster. configuration file is taring and base64 encoding like bellow.
+kubectl needs configuration file to connect kubernetes cluster. configuration file is taring and base64 encoding as bellow.
 
 `KUBECTL_CONFIG=`
 
@@ -12,30 +12,19 @@ kubectl needs configuration file to connect kubernetes cluster. configuration fi
 cat $HOME/.kube/config | gzip | base64 | pbcopy
 ```
 
-### Deployment
+### Deployment file
 
-This is the name of the deployment. you can get the deployment name from `kubectl get deployment`
+This is the cluster deployment file which is taring and base64 encoding 
 
-```
-DEPLOYMENT=deployment/bluedrop-q
-```
-
-### Set an image to container
-
-You can set an image to one or more containers.
+`DEPLOYMENT_FILE=`
 
 ```
-SET_CONTAINER_IMAGE=<container_name>=<image> 
-```
-For example:
-
-```
-bluedrop-q-client=bluedrop360/bluedrop-q-client:qc bluedrop-q-server=bluedrop360/bluedrop-q-server:qc
+cat kubernetes/bluedrop-q-deployment.yml | gzip | base64
 ```
 
 ## Codeship Usage:
 
-Append the environment variable value to the environment variable name with` =`. For an example `DEPLOYMENT=deployment/bluedrop-q`. Copy the whole key value pair as a string and use the following to encrypt it.
+Append an encoded environment variable value to the environment variable name with` =`. For an example `DEPLOYMENT_FILE=BASE64_ENCODED_VALUE_SEE_INSTRUCTIONS_ABOVE`. Copy the whole key value pair as a string and use the following to encrypt it.
 
 ```
 pbpaste > raw.tmp && jet encrypt raw.tmp crypt.tmp && cat crypt.tmp | pbcopy && rm raw.tmp crypt.tmp

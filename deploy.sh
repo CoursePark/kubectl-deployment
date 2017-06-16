@@ -8,7 +8,14 @@ if [ ! -z "$KUBECTL_CONFIG" ]; then
 echo $KUBECTL_CONFIG | base64 -d | gzip -d > $KUBECTL_PATH/config
 fi
 
+# extract bluedrop-q-deployment.yml from DEPLOYMENT_FILE
+if [ ! -z "$DEPLOYMENT_FILE" ]; then
+echo $DEPLOYMENT_FILE | base64 -d | gzip -d > bluedrop-q-deployment.yml
+fi
+
+sed -ie "s/THIS_STRING_IS_REPLACED_BY_COMMIT_ID/$(echo ${CI_COMMIT_ID})/g" bluedrop-q-deployment.yml
+
 echo "Starting kubernetes deployment"
-echo "Running kubectl set image $DEPLOYMENT $SET_CONTAINER_IMAGE --record"
-kubectl set image $DEPLOYMENT $SET_CONTAINER_IMAGE --record
+echo "Running kubectl apply -f bluedrop-q-deployment.yml"
+kubectl apply -f bluedrop-q-deployment.yml
 echo "Finished kubernetes deployment"
