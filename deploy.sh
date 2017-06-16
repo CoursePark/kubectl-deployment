@@ -13,7 +13,7 @@ if [ ! -z "$DEPLOYMENT_FILE" ]; then
 echo $DEPLOYMENT_FILE | base64 -d | gzip -d > bluedrop-q-deployment.yml
 fi
 
-sed -ie "s/THIS_STRING_IS_REPLACED_BY_COMMIT_ID/$(echo ${CI_COMMIT_ID})/g" bluedrop-q-deployment.yml
+sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" bluedrop-q-deployment.yml
 
 echo "Starting kubernetes deployment"
 echo "Running kubectl apply -f bluedrop-q-deployment.yml"
