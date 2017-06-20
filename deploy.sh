@@ -17,5 +17,5 @@ sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" blued
 
 echo "Starting kubernetes deployment"
 echo "Running kubectl apply -f bluedrop-q-deployment.yml"
-kubectl apply -f bluedrop-q-deployment.yml
+kubectl apply -f bluedrop-q-deployment.yml --record
 echo "Finished kubernetes deployment"
