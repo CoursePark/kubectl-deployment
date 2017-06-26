@@ -21,15 +21,6 @@ This is the cluster deployment file which is taring and base64 encoding
 ```
 cat cat kubernetes/ingress/bluedrop-q-client.yml)\n---" > temp.yml | cat temp.yml kubernetes/ingress/bluedrop-q-server.yml > bluedrop-q-deployment.yml && rm temp.yml | cat bluedrop-q-deployment.yml | gzip | base64
 ```
-### Namespace
-
-This environment variable use to change the deployment environment. eg: qc, prod, support or uat
-
-`NAMESPACE=`
-
-```
-echo "qc" | gzip | base64
-```
 
 ## Codeship Usage:
 

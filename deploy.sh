@@ -13,14 +13,9 @@ if [ ! -z "$DEPLOYMENT_FILE" ]; then
 echo $DEPLOYMENT_FILE | base64 -d | gzip -d > bluedrop-q-deployment.yml
 fi
 
-# extract namespace from NAMESPACE
-if [ ! -z "$NAMESPACE" ]; then
-NAMESPACE="$(echo "$NAMESPACE" | base64 -d | gzip -d)"
-fi
-
 sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" bluedrop-q-deployment.yml
 
 echo "Starting kubernetes deployment"
 echo "Running kubectl apply -f bluedrop-q-deployment.yml"
-kubectl apply -f bluedrop-q-deployment.yml --namespace NAMESPACE --record
+kubectl apply -f bluedrop-q-deployment.yml --record
 echo "Finished kubernetes deployment"
