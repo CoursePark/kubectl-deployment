@@ -15,7 +15,7 @@ fi
 
 # extract namespace from NAMESPACE
 if [ ! -z "$NAMESPACE" ]; then
-export NAMESPACE = echo $NAMESPACE | base64 -d | gzip -d
+NAMESPACE="$(echo "$NAMESPACE" | base64 -d | gzip -d)"
 fi
 
 sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" bluedrop-q-deployment.yml
