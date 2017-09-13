@@ -2,7 +2,7 @@ FROM alpine
 
 MAINTAINER Gayan Jayasundara <gayan@bluedrop.com>
 
-ENV KUBE_LATEST_VERSION="v1.6.4"
+ENV KUBE_LATEST_VERSION="v1.7.0"
 
 RUN apk add --update ca-certificates \
  && apk add --update -t deps curl \
