@@ -13,8 +13,6 @@ if [ ! -z "$DEPLOYMENT_FILE" ]; then
 echo $DEPLOYMENT_FILE | base64 -d | gzip -d > cluster-deployment.yml
 fi
 
-cat cluster-deployment.yml
-
 sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" cluster-deployment.yml
 
 echo "Starting kubernetes deployment"
