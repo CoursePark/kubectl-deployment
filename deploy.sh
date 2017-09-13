@@ -8,14 +8,16 @@ if [ ! -z "$KUBECTL_CONFIG" ]; then
 echo $KUBECTL_CONFIG | base64 -d | gzip -d > $KUBECTL_PATH/config
 fi
 
-# extract bluedrop-q-deployment.yml from DEPLOYMENT_FILE
+# extract cluster-deployment.yml from DEPLOYMENT_FILE
 if [ ! -z "$DEPLOYMENT_FILE" ]; then
-echo $DEPLOYMENT_FILE | base64 -d | gzip -d > bluedrop-q-deployment.yml
+echo $DEPLOYMENT_FILE | base64 -d | gzip -d > cluster-deployment.yml
 fi
 
-sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" bluedrop-q-deployment.yml
+cat cluster-deployment.yml
+
+sed -ie "s/THIS_STRING_IS_REPLACED_DURING_BUILD/$(echo ${CI_COMMIT_ID})/g" cluster-deployment.yml
 
 echo "Starting kubernetes deployment"
 echo "Running kubectl apply -f bluedrop-q-deployment.yml"
-kubectl apply -f bluedrop-q-deployment.yml --record
+kubectl apply -f cluster-deployment.yml --record
 echo "Finished kubernetes deployment"
